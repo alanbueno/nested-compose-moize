@@ -16,10 +16,15 @@ class RotationGallery extends PureComponent {
   }
 
   mountGallery = moize(
-    () =>
-      this.props.RotationGalleryList.map((galleryItem, i) => (
-        <RotationGalleryItem galleryItem={galleryItem} index={i} />
-      )),
+    () => {
+      const { rotationGalleryList } = this.props;
+      return (
+        rotationGalleryList &&
+        rotationGalleryList.map((galleryItem, i) => (
+          <RotationGalleryItem galleryItem={galleryItem} index={i} />
+        ))
+      );
+    },
     {
       isDeepEqual: true
     }
@@ -29,9 +34,7 @@ class RotationGallery extends PureComponent {
     return (
       <Page.Card title="Galeria Rotativa">
         <Form>
-          <Carousel>
-            {this.mountGallery()}
-          </Carousel>
+          <Carousel>{this.mountGallery()}</Carousel>
           <Card.Footer>
             <div className="d-flex">
               <Button
